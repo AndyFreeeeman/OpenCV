@@ -48,25 +48,25 @@ for img_path_counter in range( 0 , len(all_img_path) - 1 ):
             img = cv2.imread(current_path + '\\' + str(img_counter) + '.jpg')
             
             if img_counter == 0:
-                cv2.putText(img, 'IR: ' + str(IR) , (1000, 60), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(img, 'IR: ' + str(IR) , (20, 680), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 3, cv2.LINE_AA)
             
                 print(result)
             
                 if result != None:
-                    rresult = result[img_counter]
-                    item = rresult[:,0]
-                    confidence = rresult[:,1]
+                    #result_Dict = dict(enumerate(result, start=1))
+                    #item = result_Dict[1]
+                    #confidence = result_Dict[2]
                 
-                    cv2.putText(img, 'Result: ' + item, (20, 60), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 2, cv2.LINE_AA)
-                    cv2.putText(img, 'Confidence: ' +  confidence, (20, 120), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 2, cv2.LINE_AA)
+                    cv2.putText(img, str(result) , (20, 60), cv2.FONT_HERSHEY_SIMPLEX,1, (0, 255, 255), 2, cv2.LINE_AA)
+                    #cv2.putText(img, 'Confidence: ' +  confidence, (20, 120), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 2, cv2.LINE_AA)
 
                 else:
-                    cv2.putText(img, 'No Result', (20, 60), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 2, cv2.LINE_AA)
+                    cv2.putText(img, 'No Result', (20, 60), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 3, cv2.LINE_AA)
 
             for xy_counter in range (0 , len(x1)):
                 cv2.rectangle(img, (int(x1[xy_counter]), int(y1[xy_counter])), (int(x2[xy_counter]), int(y2[xy_counter])), (230, 0, 230), 3)
             
-            cv2.line(img, (imgPointX , 0), (imgPointX , 720), (125, 255, 0), 7)
+            cv2.line(img, (int(imgPointX) , 0), (int(imgPointX) , 720), (125, 255, 0), 7)
             
             if img_counter == 0:
                 img_0 = img
@@ -86,8 +86,27 @@ for img_path_counter in range( 0 , len(all_img_path) - 1 ):
     final_img = np.vstack((final_img , img_4))
     
     
-    cv2.imwrite(os.path.join(save_path , 'af_' + str(time.strftime('%m%d_%H_%M_%S', time.localtime())) + str(save_counter) + '.jpg'), final_img)
+    cv2.imwrite(os.path.join(save_path , str(all_img_path[img_path_counter]) + '.jpg'), final_img)
             
     save_counter = save_counter + 1
             
     print("save image. " + str(save_counter))
+    
+    os.system('cls')
+    
+    process = int((img_path_counter + 2) / len(all_img_path) * 100)
+    
+    print("進度：" + str(process) + '%')
+    
+    process_string = ''
+    process_counter = 0
+    
+    for i in range(0,int(process/5)):
+        process_string = process_string + '##'
+        process_counter = process_counter + 1
+        
+        
+    for j in range(0,int(20-process_counter)):
+        process_string = process_string + '--'
+    
+    print(process_string)
