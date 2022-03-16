@@ -21,8 +21,9 @@ os.chdir(home_path)
 all_img_path = os.listdir(os.curdir)
 all_img_path = all_img_path[1:]
 
-for img_path_counter in range( 0 , len(all_img_path) - 1 ):
-    for in_out_counter in range(0,1):
+for img_path_counter in range( 0 , len(all_img_path) ):
+    for in_out_counter in range(0,2):
+        
         print(str(all_img_path[img_path_counter]))
         current_path = home_path + str(all_img_path[img_path_counter])
         
@@ -53,11 +54,11 @@ for img_path_counter in range( 0 , len(all_img_path) - 1 ):
                 print(result)
             
                 if result != None:
-                    #result_Dict = dict(enumerate(result, start=1))
-                    #item = result_Dict[1]
-                    #confidence = result_Dict[2]
+                    result_Dict = dict(enumerate(result, start=1))
+                    item = result_Dict[1]
                 
-                    cv2.putText(img, str(result) , (20, 60), cv2.FONT_HERSHEY_SIMPLEX,1, (0, 255, 255), 2, cv2.LINE_AA)
+                    cv2.putText(img, result_Dict[1] , (20, 60), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 3, cv2.LINE_AA)
+                    cv2.putText(img, str(result) , (20, 120), cv2.FONT_HERSHEY_SIMPLEX,1, (0, 255, 255), 2, cv2.LINE_AA)
                     #cv2.putText(img, 'Confidence: ' +  confidence, (20, 120), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 2, cv2.LINE_AA)
 
                 else:
@@ -79,34 +80,35 @@ for img_path_counter in range( 0 , len(all_img_path) - 1 ):
             elif img_counter == 4:
                 img_4 = img
     
+        final_img = np.vstack((img_0 , img_1))
+        final_img = np.vstack((final_img , img_2))
+        final_img = np.vstack((final_img , img_3))
+        final_img = np.vstack((final_img , img_4))
     
-    final_img = np.vstack((img_0 , img_1))
-    final_img = np.vstack((final_img , img_2))
-    final_img = np.vstack((final_img , img_3))
-    final_img = np.vstack((final_img , img_4))
-    
-    
-    cv2.imwrite(os.path.join(save_path , str(all_img_path[img_path_counter]) + '.jpg'), final_img)
+        if in_out_counter == 0:
+            cv2.imwrite(os.path.join(save_path , str(all_img_path[img_path_counter]) + '_In' + '.jpg'), final_img)
+        else:
+            cv2.imwrite(os.path.join(save_path , str(all_img_path[img_path_counter]) + '_Out' + '.jpg'), final_img)
             
-    save_counter = save_counter + 1
+        save_counter = save_counter + 1
             
-    print("save image. " + str(save_counter))
+        print("save image. " + str(save_counter))
     
-    os.system('cls')
+        os.system('cls')
     
-    process = int((img_path_counter + 2) / len(all_img_path) * 100)
+        process = int((img_path_counter + 2) / len(all_img_path) * 100)
     
-    print("進度：" + str(process) + '%')
+        print("進度：" + str(process) + '%')
     
-    process_string = ''
-    process_counter = 0
+        process_string = ''
+        process_counter = 0
     
-    for i in range(0,int(process/5)):
-        process_string = process_string + '##'
-        process_counter = process_counter + 1
+        for i in range(0,int(process/5)):
+            process_string = process_string + '##'
+            process_counter = process_counter + 1
         
         
-    for j in range(0,int(20-process_counter)):
-        process_string = process_string + '--'
+        for j in range(0,int(20-process_counter)):
+            process_string = process_string + '--'
     
-    print(process_string)
+        print(process_string)
