@@ -21,7 +21,7 @@ os.chdir(home_path)
 all_img_path = os.listdir(os.curdir)
 all_img_path = all_img_path[1:-1]
 
-for img_path_counter in range( 0 , len(all_img_path) ):
+for img_path_counter in range( 0 , len(all_img_path)-1 ):
     for in_out_counter in range(0,2):
         
         clear_output(wait=True)
@@ -113,12 +113,12 @@ for img_path_counter in range( 0 , len(all_img_path) ):
         process_string = ''
         process_counter = 0
     
-        for i in range(0,int(process/5)):
-            process_string = process_string + '##'
+        for i in range(0,int(process/2.5)):
+            process_string = process_string + '#'
             process_counter = process_counter + 1
         
         
-        for j in range(0,int(20-process_counter)):
-            process_string = process_string + '--'
+        for j in range(0,int(40-process_counter)):
+            process_string = process_string + '-'
     
         print(process_string)
