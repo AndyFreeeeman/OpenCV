@@ -2,8 +2,8 @@ import pickle
 import os
 import numpy as np
 import cv2
-import keyboard
 import time
+from IPython.display import clear_output
 
 home_path = 'C:\\Users\\460442\\itri_img\\'
 save_path = 'C:\\Users\\460442\\Desktop\\after_img\\'
@@ -24,13 +24,17 @@ all_img_path = all_img_path[1:]
 for img_path_counter in range( 0 , len(all_img_path) ):
     for in_out_counter in range(0,2):
         
-        print(str(all_img_path[img_path_counter]))
+        clear_output(wait=True)
+        
         current_path = home_path + str(all_img_path[img_path_counter])
         
         if in_out_counter == 0:
             current_path = current_path + '\\slotIn'
+            print(str(all_img_path[img_path_counter]) + '_slotIn')
+            
         else:
             current_path = current_path + '\\slotOut'
+            print(str(all_img_path[img_path_counter]) + '_slotOut')
             
         with open(current_path + '\\result.pickle', 'rb') as handle:
             b = pickle.load(handle)
