@@ -59,7 +59,7 @@ for img_path_counter in range( 0 , len(all_img_path) ):
                 
                     cv2.putText(img, result_Dict[1] , (20, 60), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 3, cv2.LINE_AA)
                     cv2.putText(img, str(result) , (20, 120), cv2.FONT_HERSHEY_SIMPLEX,1, (0, 255, 255), 2, cv2.LINE_AA)
-                    #cv2.putText(img, 'Confidence: ' +  confidence, (20, 120), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 2, cv2.LINE_AA)
+                    
 
                 else:
                     cv2.putText(img, 'No Result', (20, 60), cv2.FONT_HERSHEY_SIMPLEX,2, (0, 255, 255), 3, cv2.LINE_AA)
@@ -84,17 +84,23 @@ for img_path_counter in range( 0 , len(all_img_path) ):
         final_img = np.vstack((final_img , img_2))
         final_img = np.vstack((final_img , img_3))
         final_img = np.vstack((final_img , img_4))
+        
+        if result != None:
+            class_save_path = save_path + '\\' + result_Dict[1] + '\\'
+        else:
+            class_save_path = save_path + '\\' + 'No_Result' + '\\'
+        
+        if not os.path.isdir(class_save_path):
+            os.makedirs(class_save_path)
     
         if in_out_counter == 0:
-            cv2.imwrite(os.path.join(save_path , str(all_img_path[img_path_counter]) + '_In' + '.jpg'), final_img)
+            cv2.imwrite(os.path.join(class_save_path , str(all_img_path[img_path_counter]) + '_In' + '.jpg'), final_img)
         else:
-            cv2.imwrite(os.path.join(save_path , str(all_img_path[img_path_counter]) + '_Out' + '.jpg'), final_img)
+            cv2.imwrite(os.path.join(class_save_path , str(all_img_path[img_path_counter]) + '_Out' + '.jpg'), final_img)
             
         save_counter = save_counter + 1
             
         print("save image. " + str(save_counter))
-    
-        os.system('cls')
     
         process = int((img_path_counter + 2) / len(all_img_path) * 100)
     
