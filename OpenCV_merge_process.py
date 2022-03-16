@@ -19,7 +19,7 @@ img_4 = 0
 
 os.chdir(home_path)
 all_img_path = os.listdir(os.curdir)
-all_img_path = all_img_path[1:]
+all_img_path = all_img_path[1:-1]
 
 for img_path_counter in range( 0 , len(all_img_path) ):
     for in_out_counter in range(0,2):
