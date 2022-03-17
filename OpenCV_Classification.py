@@ -41,4 +41,4 @@ for img_path_counter in range( 0 , len(all_img_path) ):
     
     clear_output(wait=True)
     
-    print('進度: ' + str(int(img_path_counter/len(all_img_path)*100)) + ' %' )
+    print('進度: ' + str(int(img_path_counter/len(all_img_path)*100) + 1) + ' %' )
