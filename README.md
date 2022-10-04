@@ -1,4 +1,4 @@
-# ITRI 資通所實習
+# 資料蒐集and處理
 
 ## OpenCV_Classification.py 
 
