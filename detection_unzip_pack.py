@@ -13,13 +13,16 @@ import cv2
 import random
 
 
-img_path = '..//product-record//'
+img_path = '..//product-record//2023-05-20//'
 save_path = './/'
+img_number_per_folder = 20
 
 
 all_img_path = os.listdir(img_path)
 
-for pack_counter in range( int(len(all_img_path)*20/500) ):
+pack_number = int(len(all_img_path)*img_number_per_folder/500)
+
+for pack_counter in range(pack_number):
     if not os.path.isdir(".//" + str(pack_counter)):
         os.makedirs( ".//" + str(pack_counter) )
     
@@ -42,7 +45,7 @@ for img_path_counter in range( 0 , len(all_img_path) ):
             
         if os.path.isfile(current_path + '//result.pickle'):
 
-            for img_counter in range (0,10): # 10 img
+            for img_counter in range (0,img_number_per_folder): # img number
                 
                 print(str(all_img_path[img_path_counter]))
                 print("計數:" + str(save_img_counter))
@@ -53,10 +56,10 @@ for img_path_counter in range( 0 , len(all_img_path) ):
                 print('進度: ' + str(int(img_path_counter/len(all_img_path)*100) + 1) + ' %' )
                 
                 if in_out_counter == 0:
-                    cv2.imwrite(os.path.join(save_path + str(random.randrange(45)) + "//" , str(all_img_path[img_path_counter]) + '_slotIn_' + str(img_counter) + '.jpg'), img)
+                    cv2.imwrite(os.path.join(save_path + str(random.randrange(pack_number)) + "//" , str(all_img_path[img_path_counter]) + '_slotIn_' + str(img_counter) + '.jpg'), img)
                     
                 else:
-                    cv2.imwrite(os.path.join(save_path + str(random.randrange(45)) + "//" , str(all_img_path[img_path_counter]) + '_slotOut_' + str(img_counter) + '.jpg'), img)
+                    cv2.imwrite(os.path.join(save_path + str(random.randrange(pack_number)) + "//" , str(all_img_path[img_path_counter]) + '_slotOut_' + str(img_counter) + '.jpg'), img)
                     
                 save_img_counter = save_img_counter + 1
                 
